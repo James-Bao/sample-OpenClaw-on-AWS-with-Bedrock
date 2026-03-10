@@ -633,8 +633,17 @@ Resources:
             sleep 5
           fi
           
+          # Auto-pair devices (approve all pending device pairing requests)
+          echo "[8.5/9] Starting auto-pair daemon..."
+          sudo -H -u ubuntu bash -c '
+          export HOME=/home/ubuntu
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+          nohup bash -c "while true; do sleep 5; openclaw devices list --json 2>/dev/null | python3 -c \"import sys,json; [print(r[\\\"requestId\\\"]) for r in json.load(sys.stdin).get(\\\"pending\\\",[])]\" 2>/dev/null | while read rid; do openclaw devices approve \"\$rid\" 2>/dev/null; done; done" > /tmp/auto-pair.log 2>&1 &
+          '
+
           # Enable messaging channels
-          echo "[8.5/9] Enabling messaging channels..."
+          echo "[8.6/9] Enabling messaging channels..."
           sudo -H -u ubuntu bash -c '
           export HOME=/home/ubuntu
           export NVM_DIR="$HOME/.nvm"

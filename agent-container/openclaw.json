@@ -19,5 +19,9 @@
   "model": {
     "provider": "bedrock",
     "modelId": "${BEDROCK_MODEL_ID}"
+  },
+  "a2a": {
+    "enabled": true,
+    "agentCardFile": "agent-card.json"
   }
 }

@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-10T00:06:06.264Z"
+  },
+  "agents": {
+    "defaults": {
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-4-20250514-v1:0",
+      "compaction": {
+        "mode": "safeguard"
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "name": "AlexaCrab Main",
+        "workspace": "~/.openclaw/workspace"
+      },
+      {
+        "id": "stock-analyst",
+        "name": "Stock Market Analyst",
+        "workspace": "~/.openclaw/workspace-stock-analyst",
+        "agentDir": "~/.openclaw/agents/stock-analyst/agent"
+      },
+      {
+        "id": "lunch-scout",
+        "name": "Lunch Scout",
+        "workspace": "~/.openclaw/workspace-lunch-scout",
+        "agentDir": "~/.openclaw/agents/lunch-scout/agent"
+      },
+      {
+        "id": "dashboard",
+        "name": "Agent Dashboard Manager",
+        "workspace": "~/.openclaw/workspace-dashboard",
+        "agentDir": "~/.openclaw/agents/dashboard/agent"
+      }
+    ]
+  },
+  "bindings": [
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "webchat"
+      }
+    }
+  ],
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "lan",
+    "controlUi": {
+      "allowedOrigins": [
+        "*"
+      ],
+      "dangerouslyAllowHostHeaderOriginFallback": true
+    },
+    "auth": {
+      "mode": "token",
+      "token": "6bc692ba72f1e41a3eacc4fd76961fbed26a5a9bac65cdbb"
+    },
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
+      }
+    }
+  }
+}

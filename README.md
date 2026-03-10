@@ -302,6 +302,73 @@ Uses SiliconFlow (DeepSeek, Qwen, GLM) instead of Bedrock. Requires a SiliconFlo
 
 ---
 
+## A2A Protocol (Agent-to-Agent)
+
+This project includes built-in support for the [Google A2A protocol](https://google.github.io/A2A/), enabling inter-agent communication. A2A is **enabled by default** and served over **HTTP/2** (h2c) via [hypercorn](https://github.com/pgjones/hypercorn), with HTTP/1.1 fallback.
+
+### Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/.well-known/agent-card.json` | GET | Agent Card — describes capabilities, skills, and communication endpoints |
+| `/a2a` | POST | JSON-RPC 2.0 — `tasks/send`, `tasks/get`, `tasks/cancel` |
+| `/a2a/stream` | POST | SSE streaming — `tasks/sendSubscribe` for real-time responses |
+
+### Quick Test
+
+```bash
+# 1. Discover the agent
+curl http://localhost:8080/.well-known/agent-card.json | jq .
+
+# 2. Send a task via A2A
+curl -X POST http://localhost:8080/a2a \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": "1",
+    "method": "tasks/send",
+    "params": {
+      "id": "task-001",
+      "message": {
+        "role": "user",
+        "parts": [{"type": "text", "text": "What is Amazon Bedrock?"}]
+      }
+    }
+  }'
+
+# 3. Check task status
+curl -X POST http://localhost:8080/a2a \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": "2",
+    "method": "tasks/get",
+    "params": {"id": "task-001"}
+  }'
+```
+
+### Configuration
+
+| Environment Variable | Default | Description |
+|---------------------|---------|-------------|
+| `A2A_ENABLED` | `true` | Enable/disable A2A protocol endpoints |
+| `A2A_BASE_URL` | `http://localhost:8080` | Base URL advertised in the Agent Card |
+
+To disable A2A, set `A2A_ENABLED=false` in the container environment.
+
+### How It Works
+
+1. **Discovery**: Other agents fetch `/.well-known/agent-card.json` to learn this agent's capabilities
+2. **Task submission**: A calling agent sends a `tasks/send` JSON-RPC request with a message
+3. **Execution**: The A2A handler routes the message through OpenClaw via `httpx` (HTTP/2), with a connectivity check before each task
+4. **Response**: The task transitions through `submitted → working → completed` (or `failed`), and the response is returned as an artifact
+
+The A2A implementation reuses the existing permission enforcement (Plan A system prompt injection) and response auditing (Plan E) — so A2A tasks are subject to the same tenant security controls as direct invocations.
+
+**HTTP/2 details**: The server uses `hypercorn` with h2c (HTTP/2 cleartext — no TLS required for internal communication). All internal calls to the OpenClaw subprocess use `httpx` with HTTP/2 enabled. External agents can connect via HTTP/2 or fall back to HTTP/1.1 automatically.
+
+---
+
 ## Community Skills
 
 Optional extensions for OpenClaw:

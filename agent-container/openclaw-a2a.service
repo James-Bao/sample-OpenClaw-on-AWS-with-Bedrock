@@ -1,0 +1,36 @@
+[Unit]
+Description=OpenClaw A2A Agent Service
+Documentation=https://github.com/aws-samples/sample-OpenClaw-on-AWS-with-Bedrock
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /app/server.py
+WorkingDirectory=/app
+Restart=always
+RestartSec=5
+TimeoutStartSec=60
+TimeoutStopSec=30
+
+# Environment
+Environment=PORT=8080
+Environment=A2A_ENABLED=true
+Environment=OPENCLAW_SKIP_ONBOARDING=1
+Environment=OPENCLAW_CONFIG=/app/openclaw.json
+EnvironmentFile=-/etc/default/openclaw-a2a
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=openclaw-a2a
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/tmp/openclaw
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

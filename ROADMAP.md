@@ -84,6 +84,7 @@ The critical path to a working end-to-end multi-tenant flow.
 
 ### Agent Orchestration
 
+- [x] Agent-to-agent invocation: A2A protocol (Google A2A spec) enabled by default — Agent Card, JSON-RPC tasks/send, tasks/get, tasks/cancel, SSE streaming
 - [ ] Agent-to-agent invocation: agent A triggers agent B via AgentCore session
 - [ ] Workflow chains: Finance agent → Compliance agent → Executive agent
 - [ ] Scheduled orchestration: Monday 8am, all team agents generate weekly summaries → department agent aggregates

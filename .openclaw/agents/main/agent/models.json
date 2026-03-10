@@ -1,0 +1,30 @@
+{
+  "providers": {
+    "amazon-bedrock": {
+      "baseUrl": "https://bedrock-runtime.us-west-2.amazonaws.com",
+      "auth": "aws-sdk",
+      "api": "bedrock-converse-stream",
+      "models": [
+        {
+          "id": "global.anthropic.claude-sonnet-4-20250514-v1:0",
+          "name": "Bedrock Model",
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 200000,
+          "maxTokens": 8192,
+          "reasoning": false,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "api": "bedrock-converse-stream"
+        }
+      ],
+      "apiKey": "AWS_PROFILE"
+    }
+  }
+}

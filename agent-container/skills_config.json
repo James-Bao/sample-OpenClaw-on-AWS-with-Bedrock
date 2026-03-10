@@ -1,0 +1,81 @@
+{
+  "skills": [
+    {
+      "id": "alexa-skill-management",
+      "name": "Alexa Skill Management",
+      "description": "Create, update, test, and deploy Alexa skills including interaction models, intent handlers, and slot types",
+      "tags": ["alexa", "skills", "voice", "deployment"],
+      "examples": [
+        "Create a new Alexa skill with a custom intent for ordering coffee",
+        "Update the interaction model to add a new slot type for drink sizes",
+        "Deploy the skill to the development stage and run certification tests"
+      ]
+    },
+    {
+      "id": "alexa-conversation-design",
+      "name": "Alexa Conversation Design",
+      "description": "Design and optimize voice user interfaces, dialog flows, multi-turn conversations, and ACDL dialogs for Alexa",
+      "tags": ["alexa", "conversation", "vui", "dialog", "acdl"],
+      "examples": [
+        "Design a multi-turn dialog flow for a restaurant reservation skill",
+        "Optimize the error handling and re-prompts for better user experience",
+        "Create an ACDL dialog for a smart home device control scenario"
+      ]
+    },
+    {
+      "id": "alexa-backend-integration",
+      "name": "Alexa Backend Integration",
+      "description": "Build and maintain Lambda functions, API integrations, DynamoDB persistence, and account linking for Alexa skills",
+      "tags": ["alexa", "lambda", "api", "dynamodb", "backend"],
+      "examples": [
+        "Write a Lambda handler for a new intent that queries a REST API",
+        "Set up DynamoDB persistence for user preferences across sessions",
+        "Configure account linking with OAuth 2.0 for a third-party service"
+      ]
+    },
+    {
+      "id": "alexa-testing-certification",
+      "name": "Alexa Testing & Certification",
+      "description": "Automated testing, simulation, utterance profiler analysis, and certification preparation for Alexa skills",
+      "tags": ["alexa", "testing", "certification", "quality"],
+      "examples": [
+        "Generate test cases for all intents and edge cases in the skill",
+        "Run the utterance profiler to identify conflicts between intents",
+        "Prepare the skill for certification by checking all policy requirements"
+      ]
+    },
+    {
+      "id": "alexa-analytics-optimization",
+      "name": "Alexa Analytics & Optimization",
+      "description": "Analyze skill usage metrics, identify drop-off points, optimize engagement, and improve skill discoverability",
+      "tags": ["alexa", "analytics", "optimization", "engagement"],
+      "examples": [
+        "Analyze the skill usage funnel and identify where users are dropping off",
+        "Suggest improvements to increase daily active users and session duration",
+        "Optimize the skill's name, invocation phrases, and category for discoverability"
+      ]
+    },
+    {
+      "id": "alexa-smart-home",
+      "name": "Alexa Smart Home",
+      "description": "Develop and troubleshoot Alexa Smart Home skills, device discovery, state reporting, and proactive events",
+      "tags": ["alexa", "smart-home", "iot", "devices"],
+      "examples": [
+        "Create a Smart Home skill for a custom IoT thermostat device",
+        "Implement device discovery and state reporting for a smart light",
+        "Set up proactive state updates using the Alexa Event Gateway"
+      ]
+    },
+    {
+      "id": "long-running-task-executor",
+      "name": "Long-Running Task Executor",
+      "description": "Execute complex, multi-step tasks that require extended processing time — code generation, data analysis, infrastructure provisioning, and batch operations",
+      "tags": ["long-running", "async", "batch", "automation"],
+      "examples": [
+        "Generate a complete microservice with tests, Dockerfile, and CI/CD pipeline",
+        "Analyze a large dataset and produce a summary report with visualizations",
+        "Provision a multi-region AWS infrastructure stack with monitoring"
+      ]
+    }
+  ]
+}

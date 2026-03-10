@@ -19,6 +19,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy Agent Container application files
 COPY agent-container/server.py .
 COPY agent-container/openclaw.json .
+COPY agent-container/agent-card.json .
+COPY agent-container/a2a.py .
 COPY agent-container/permissions.py .
 COPY agent-container/identity.py .
 COPY agent-container/memory.py .
@@ -30,12 +32,16 @@ RUN mkdir -p /app/auth-agent
 COPY auth-agent/permission_request.py /app/auth-agent/permission_request.py
 COPY auth-agent/__init__.py /app/auth-agent/__init__.py
 
+# Copy systemd service unit (for non-Docker deployments)
+COPY agent-container/openclaw-a2a.service /etc/systemd/system/openclaw-a2a.service
+
 # Create session storage directory
 RUN mkdir -p /tmp/openclaw/sessions
 
 ENV OPENCLAW_SKIP_ONBOARDING=1
 ENV OPENCLAW_CONFIG=/app/openclaw.json
 ENV PORT=8080
+ENV A2A_ENABLED=true
 
 EXPOSE 8080
 
